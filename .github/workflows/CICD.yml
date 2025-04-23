@@ -30,6 +30,6 @@ jobs:
           
       - name: Build and Push Django Docker image to GCP
         run: |
-          IMAGE_NAME=gcr.io/deploy-box/${{ env.STACK }}-django
+          IMAGE_NAME=gcr.io/deploy-box/${{ env.STACK }}
           docker build -t $IMAGE_NAME source_code
           docker push $IMAGE_NAME
