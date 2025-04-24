@@ -9,10 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'dev' }}
 
     env:
       STACK: ${{ vars.STACK }}
-      PROJECT_ID: ${{ github.ref == 'refs/heads/main' && 'deploy-box' || 'deploy-box-dev' }}
+      PROJECT_ID: ${{ vars.PROJECT_ID }}
 
     steps:
       - name: Check out code
