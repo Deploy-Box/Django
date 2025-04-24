@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   build:
@@ -11,6 +12,7 @@ jobs:
 
     env:
       STACK: ${{ vars.STACK }}
+      PROJECT_ID: ${{ github.ref == 'refs/heads/main' && 'deploy-box' || 'deploy-box-dev' }}
 
     steps:
       - name: Check out code
@@ -30,6 +32,6 @@ jobs:
           
       - name: Build and Push Django Docker image to GCP
         run: |
-          IMAGE_NAME=gcr.io/deploy-box/${{ env.STACK }}
+          IMAGE_NAME=gcr.io/${{ env.PROJECT_ID }}/${{ env.STACK }}
           docker build -t $IMAGE_NAME source_code
           docker push $IMAGE_NAME
